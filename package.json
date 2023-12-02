@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "day01": "node src/2023/day01.mjs",
+    "day02": "node src/2023/day02.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
