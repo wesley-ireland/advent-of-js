@@ -22,6 +22,10 @@ function hasSymbolAbove(numberIndex, number, lineIndex, array) {
     for (const char of stringAbove.split('')) {
        if (isSymbol(char)) return true;
     }
+    if (number === '1') {
+        console.log(lineAbove[numberIndex], lineAbove[numberIndex+number.toString().length])
+        console.log(numberIndex+number.toString().length, numberIndex)
+    }
     return hasSymbolLeft(numberIndex, lineAbove) || hasSymbolRight(numberIndex, number.toString().length, lineAbove);
 }
 
@@ -35,20 +39,25 @@ function hasSymbolBelow(numberIndex, number, lineIndex, array) {
     return hasSymbolLeft(numberIndex, lineBelow) || hasSymbolRight(numberIndex, number.toString().length, lineBelow); 
 }
 
-function hasAdjacentSymbol(line, number, lineIndex, array) {
-    const numberIndex = line.indexOf(number);
-    return hasSymbolLeft(numberIndex, line) ||
+function hasAdjacentSymbol(line, number, lineIndex, array, numberIndex) {
+    const hasAdjacentSymbol = hasSymbolLeft(numberIndex, line) ||
         hasSymbolRight(numberIndex, number.toString().length, line) ||
         hasSymbolAbove(numberIndex, number, lineIndex, array) ||
         hasSymbolBelow(numberIndex, number, lineIndex, array);
+    console.log(`Number ${number} hasAdjacentSymbol ${hasAdjacentSymbol} line length ${line.length}, lineindex ${lineIndex}, numberIndex: ${numberIndex}`)
+    return hasAdjacentSymbol;
 }
 
 const part1 = lines.map((line, lineIndex, array) => {
-    const numbers = line.match(/(\d+)/g);
-    if (numbers == null) return 0;
-    return numbers
-        .map(number => hasAdjacentSymbol(line, number, lineIndex, array) ? parseInt(number) : 0)
-        .reduce((acc, el) => acc + el, 0);
+    let lineSum = 0;
+    const lineMatches = [...line.matchAll(/(\d+)/g)];
+    lineMatches.forEach(match => {
+        // console.log(line, match[1], lineIndex, array, match.index)
+       if (hasAdjacentSymbol(line, parseInt(match[1]), lineIndex, array, match.index)) {
+           lineSum += parseInt(match[1]);
+       }
+    });
+    return lineSum;
 }).reduce((acc, el) => acc + el, 0);
 
 console.log(`Part 1: ${part1}`);
