@@ -1,16 +1,11 @@
 {
   "name": "advent-of-js",
   "version": "1.0.0",
-  "description": "",
+  "description": "Advent of code solutions in Javascript.",
   "main": "index.js",
   "scripts": {
-    "day01": "node src/2023/day01.mjs",
-    "day02": "node src/2023/day02.mjs",
-    "day03-part1": "node src/2023/day03-part1.mjs",
-    "day03-part2": "node src/2023/day03-part2.mjs",
-    "day04": "node src/2023/day04.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "DAY=$DAY node src/2023/day$DAY.mjs"
   },
-  "author": "",
+  "author": "Wesley Ireland",
   "license": "ISC"
 }
